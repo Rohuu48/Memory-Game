@@ -1,0 +1,9 @@
+h1 {
+  color: red;
+}
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  width: 400px;
+  height: 300px;
+}
