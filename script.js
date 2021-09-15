@@ -132,7 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
     chosenCards = [];
     chosenCardsId = [];
     resultDisplay.textContent = score;
-    if (score == cardArray.length / 2) {
+    if (score == cardArray.length / 3) {
       messageDisplay.textContent = "You found them all. Congrats";
     }
   }
