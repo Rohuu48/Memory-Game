@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   //add the time:- 5 minutes
-
+  let NO_OF_DUPLICATES = 3;
   const cardArray = [
     {
       name: "cheeseburger",
@@ -79,12 +79,58 @@ document.addEventListener("DOMContentLoaded", () => {
   cardArray.sort(function () {
     return 0.5 - Math.random();
   });
+
   const grid = document.querySelector(".grid");
   const resultDisplay = document.querySelector("#result");
   const messageDisplay = document.querySelector("#congrats-message");
+  const startBtn = document.querySelector("#start");
+
+  startBtn.addEventListener("click", startGame);
+
   let chosenCards = [];
   let chosenCardsId = [];
   let score = 0;
+
+  function restartGame() {
+    window.location.reload(true);
+  }
+
+  function startGame() {
+    createGrid();
+
+    let timeInSeconds = 190;
+
+    let today = new Date();
+
+    let countDownTime = today.setSeconds(today.getSeconds() + timeInSeconds); //6:58:57
+
+    let timerInterval = setInterval(function () {
+      let now = new Date().getTime();
+      let diff = countDownTime - now; //milliseconds
+      console.log(diff);
+      let hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      let minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      let seconds = Math.floor((diff % (1000 * 60)) / 1000);
+      document.getElementById("timer").innerHTML =
+        "Timer: " + hours + "h " + minutes + "m " + seconds + "s ";
+
+      if (diff < 0) {
+        clearInterval(timerInterval);
+        document.getElementById("timer").innerHTML = "Time's up";
+        alert(`Game's over. Your score:${score}`);
+        const cards = document.querySelectorAll("img");
+        for (let i = 0; i < cardArray.length; i++) {
+          cards[i].setAttribute("src", "images/blank.png");
+          cards[i].removeEventListener("click", flip);
+          score = 0;
+        }
+        const restartBtn = document.createElement("button");
+        restartBtn.innerHTML = "Restart Game";
+        restartBtn.addEventListener("click", restartGame);
+        document.body.appendChild(restartBtn);
+      }
+    }, 1000);
+  }
 
   function createGrid() {
     for (let i = 0; i < cardArray.length; i++) {
@@ -132,7 +178,7 @@ document.addEventListener("DOMContentLoaded", () => {
     chosenCards = [];
     chosenCardsId = [];
     resultDisplay.textContent = score;
-    if (score == cardArray.length / 3) {
+    if (score == cardArray.length / NO_OF_DUPLICATES) {
       messageDisplay.textContent = "You found them all. Congrats";
     }
   }
@@ -144,11 +190,10 @@ document.addEventListener("DOMContentLoaded", () => {
     chosenCards.push(cardArray[cardId]);
     chosenCardsId.push(cardId);
     //conditional statement
-    if (chosenCards.length == 3) {
+    if (chosenCards.length == NO_OF_DUPLICATES) {
       //check for matching
       //Using settimeout, we can wait for a particular duration and after that we will call a particular function
       setTimeout(matchCards, 500);
     }
   }
-  createGrid();
 });
