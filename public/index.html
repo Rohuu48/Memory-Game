@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Memory Game</title>
+    <script src="script.js"></script>
+    <link href="style.css" rel="stylesheet" ></link>
+  </head>
+  <body>
+    <h1>Memory Game</h1>
+    <button id="start">Start Game</button>
+    <p id="timer"></p>
+    <h3>Score: <span id="result">0</span></h3>
+    <p id="congrats-message"></p>
+    <div class="grid"></div>
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-analytics.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyAN-4OxixwB247BaBvHh6HjnsD7xEi4J1o",
+      authDomain: "memorygame-8db16.firebaseapp.com",
+      projectId: "memorygame-8db16",
+      storageBucket: "memorygame-8db16.appspot.com",
+      messagingSenderId: "158985134425",
+      appId: "1:158985134425:web:21fe924aa5ab0d45b16c48",
+      measurementId: "G-Q2Y48N5DYC"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+  </script>
+    </body>
+
+</html>
